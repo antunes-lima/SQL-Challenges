@@ -1,5 +1,5 @@
-/* QUESTAO 1
-Crie os índices apropriadaos para as tabelas do nosso modelo de dados com o intuito de melhorar a performance.
+/* EXERCISE 1
+Create the appropriate indexes for the tables of our data model in order to improve performance.
 */
 CREATE INDEX idx_customer ON olist_customers_dataset (customer_id);
 CREATE INDEX idx_customer2 ON olist_orders_dataset (customer_id);
@@ -19,8 +19,8 @@ CREATE INDEX idx_geolocation ON olist_geolocation_dataset (geolocation_zip_code_
 CREATE INDEX idx_geolocation2 ON olist_customers_dataset (customer_zip_code_prefix);
 CREATE INDEX idx_geolocation3 ON olist_sellers_dataset (seller_zip_code_prefix);
 
-/* QUESTAO 2 (Opcional)
-Crie índices cluesterizados. Lembre-se que, para isso, você deverá recriar a tabela para poder criar as Primary e Foreign Keys.
+/* EXERCISE 2 (Optional)
+Create cluesterized indexes. Remember that, for this, you must recreate the table in order to create the Primary and Foreign Keys.
 */
 CREATE TABLE "clustered_customers" (
 "customer_id" TEXT PRIMARY KEY,
