@@ -2,7 +2,7 @@
 Selecione os dados da tabela de pagamentos onde só apareçam os tipos de pagamento “VOUCHER” e “BOLETO”.
 */
 SELECT * FROM olist_order_payments_dataset
-where payment_type = 'boleto'
+WHERE payment_type = 'boleto'
 OR payment_type = 'voucher'
 
 
