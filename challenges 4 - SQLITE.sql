@@ -1,9 +1,9 @@
-/* QUESTAO 1
-Crie uma view (SELLER_STATS) para mostrar por fornecedor, 
-a quantidade de itens enviados, 
-o tempo médio de postagem após a aprovação da compra, 
-a quantidade total de pedidos de cada Fornecedor, 
-note que trabalharemos na mesma query com 2 granularidades diferentes.
+/* EXERCISE 1
+Create a view (SELLER_STATS) to show by supplier,
+the quantity of items shipped,
+the average postage time after approval of the purchase,
+the total quantity of orders from each Supplier,
+note that we will work on the same query with 2 different granularities.
 */
 CREATE VIEW IF NOT EXISTS SELLER_STATS AS
 	SELECT 
@@ -17,11 +17,11 @@ CREATE VIEW IF NOT EXISTS SELLER_STATS AS
 	WHERE Pedidos.order_status NOT IN ('canceled')
 	GROUP BY Vendedor
 
-/* QUESTAO 2
-Queremos dar um cupom de 10% do valor da última compra do cliente. 
-Porém os clientes elegíveis a este cupom devem ter feito uma compra anterior a última (a partir da data de aprovação do pedido) 
-que tenha sido maior ou igual o valor da última compra. 
-Crie uma querie que retorne os valores dos cupons para cada um dos clientes elegíveis.
+/* EXERCISE 2
+We want to give a coupon of 10% of the value of the customer's last purchase.
+However, customers eligible for this coupon must have made a prior to last purchase (from the order approval date)
+that was greater than or equal to the value of the last purchase.
+Create a query that returns the coupon values for each of the eligible customers.
 */
 SELECT * FROM
 	(SELECT *,
