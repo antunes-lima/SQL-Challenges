@@ -2,36 +2,36 @@
 Return the number of items sold in each category by state the customer is in, showing only categories that have sold more than 1000 items.
 */
 SELECT 
-	count(Produtos.product_id) AS Quantidade,
-	Produtos.product_category_name AS Categoria,
-	Clientes.customer_state AS Estado
-FROM olist_customers_dataset AS Clientes
-INNER JOIN olist_orders_dataset AS Pedidos ON Pedidos.customer_id = Clientes.customer_id
-INNER JOIN olist_order_items_dataset AS Items ON Items.order_id = Pedidos.order_id
-INNER JOIN olist_products_dataset AS Produtos ON Produtos.product_id = Items.product_id
-GROUP BY Categoria, Estado
-HAVING Quantidade > 1000
-ORDER BY Estado, Quantidade DESC
+	count(Products.product_id) AS Quantity,
+	Products.product_category_name AS Category,
+	Customers.customer_state AS State
+FROM olist_customers_dataset AS Customers
+INNER JOIN olist_orders_dataset AS Orders ON Orders.customer_id = Customers.customer_id
+INNER JOIN olist_order_items_dataset AS Items ON Items.order_id = Orders.order_id
+INNER JOIN olist_products_dataset AS Products ON Products.product_id = Items.product_id
+GROUP BY Category, State
+HAVING Quantity > 1000
+ORDER BY State, Quantity DESC
 
 /* EXERCISE 2
 Show the 5 customers (customer_id) who spent the most money on purchases, the total value of all their purchases, quantity of purchases, and average amount spent per purchases.
 Order them in descending order by the average purchase value.
 */
-WITH Top_5_Clientes AS 
+WITH Top_5_Customers AS 
 (SELECT 
-	Clientes.customer_unique_id AS Cliente_ID,
-	SUM(Pagamentos.payment_value) AS Valor_Total_Compras,
-	count(Pedidos.order_id) AS Quantidade_Compras,
-	avg(Pagamentos.payment_value) AS Valor_Medio_Compras
-FROM olist_customers_dataset AS Clientes
-INNER JOIN olist_orders_dataset AS Pedidos ON Pedidos.customer_id = Clientes.customer_id
-INNER JOIN olist_order_payments_dataset AS Pagamentos ON Pagamentos.order_id = Pedidos.order_id
-WHERE Pedidos.order_status NOT IN ('canceled')
-GROUP BY Cliente_ID
-ORDER BY Valor_Total_Compras DESC
+	Customers.customer_unique_id AS Customer_ID,
+	SUM(Payments.payment_value) AS Total_Purchase_Amount,
+	count(Orders.order_id) AS Purchase_Quantity,
+	avg(Payments.payment_value) AS Avg_Purchase_Value
+FROM olist_customers_dataset AS Customers
+INNER JOIN olist_orders_dataset AS Orders ON Orders.customer_id = Customers.customer_id
+INNER JOIN olist_order_payments_dataset AS Payments ON Pagamentos.order_id = Orders.order_id
+WHERE Orders.order_status NOT IN ('canceled')
+GROUP BY Customer_ID
+ORDER BY Total_Purchase_Amount DESC
 LIMIT 5)
-SELECT * FROM Top_5_Clientes
-ORDER BY Valor_Medio_Compras DESC
+SELECT * FROM Top_5_Customers
+ORDER BY Avg_Purchase_Value DESC
 /* Obs: "customer_unique_id" is the actual unique identifier for each client, according to the dataset information on Kaggle. 
 "customer_id" is a value generated for each order ("order_id"), so each client ("customer_unique_id") can have more than one "customer_id".*/
 
@@ -41,12 +41,12 @@ only returning the sellers who in this sum and grouping sold more than $1000.
 We want to see the product category and the sellers. For each of these categories, show your sales figures in descending order.
 */
 SELECT 
-	Vendedores.seller_id AS Vendedor_ID,
-	Produtos.product_category_name AS Categoria_Produto,
-	sum(Items.Price) AS Valor_Vendas
-FROM olist_sellers_dataset AS Vendedores
-INNER JOIN olist_order_items_dataset AS Items ON Items.seller_id = Vendedores.seller_id
-INNER JOIN olist_products_dataset AS Produtos ON Produtos.product_id = Items.product_id
-GROUP BY Vendedor_ID, Categoria_Produto
-HAVING Valor_Vendas > 1000
-ORDER BY Categoria_Produto, Valor_Vendas DESC
+	Sellers.seller_id AS Seller_ID,
+	Products.product_category_name AS Product_Category,
+	sum(Items.Price) AS Sales_Value
+FROM olist_sellers_dataset AS Sellers
+INNER JOIN olist_order_items_dataset AS Items ON Items.seller_id = Sellers.seller_id
+INNER JOIN olist_products_dataset AS Products ON Products.product_id = Items.product_id
+GROUP BY Seller_ID, Product_Category
+HAVING Sales_Value > 1000
+ORDER BY Product_Category, Sales_Value DESC
