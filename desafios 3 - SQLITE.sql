@@ -18,6 +18,7 @@ INNER JOIN olist_order_items_dataset AS Items ON Items.order_id = Pedidos.order_
 INNER JOIN olist_sellers_dataset AS Vendedores ON Vendedores.seller_id = Items.seller_id
 WHERE Clientes.customer_state <> Vendedores.seller_state
 
+
 /* QUESTAO 2
 Retorne todos os pagamentos do cliente, com suas datas de aprovação,
 valor da compra e o valor total que o cliente já gastou em todas as suas compras,
@@ -43,6 +44,7 @@ INNER JOIN olist_order_payments_dataset AS Pagamentos ON Pagamentos.order_id = P
 )
 SELECT * FROM Tabela
 WHERE Valor_da_compra <> Soma_do_cliente
+
 
 /* QUESTAO 3
 Retorne as categorias válidas, suas somas totais dos valores de vendas,
