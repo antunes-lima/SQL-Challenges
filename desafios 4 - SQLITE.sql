@@ -17,6 +17,7 @@ CREATE VIEW IF NOT EXISTS SELLER_STATS AS
 	WHERE Pedidos.order_status NOT IN ('canceled')
 	GROUP BY Vendedor
 
+
 /* QUESTAO 2
 Queremos dar um cupom de 10% do valor da última compra do cliente. 
 Porém os clientes elegíveis a este cupom devem ter feito uma compra anterior a última (a partir da data de aprovação do pedido) 
