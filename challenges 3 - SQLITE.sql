@@ -1,8 +1,7 @@
-/* QUESTAO 1
-Crie uma tabela analítica de todos os itens que foram vendidos,
-mostrando somente pedidos interestaduais. 
-Queremos saber quantos dias os fornecedores demoram para postar o produto,
-se o produto chegou ou não no prazo.
+/* EXERCISE 1
+Create an analytical table of all items that were sold, showing only interstate orders.
+We want to know how many days it takes suppliers to post the product,
+whether or not the product arrived on time.
 */
 SELECT
 	Items.product_id AS Item,
@@ -18,10 +17,10 @@ INNER JOIN olist_order_items_dataset AS Items ON Items.order_id = Pedidos.order_
 INNER JOIN olist_sellers_dataset AS Vendedores ON Vendedores.seller_id = Items.seller_id
 WHERE Clientes.customer_state <> Vendedores.seller_state
 
-/* QUESTAO 2
-Retorne todos os pagamentos do cliente, com suas datas de aprovação,
-valor da compra e o valor total que o cliente já gastou em todas as suas compras,
-mostrando somente os clientes onde o valor da compra é diferente do valor total já gasto.
+/* EXERCISE 2
+Return all customer payments, with their approval dates,
+purchase amount and the total amount that the customer has already spent on all their purchases,
+showing only customers where the purchase amount is different from the total amount already spent.
 */
 WITH Tabela AS 
 (
@@ -44,10 +43,10 @@ INNER JOIN olist_order_payments_dataset AS Pagamentos ON Pagamentos.order_id = P
 SELECT * FROM Tabela
 WHERE Valor_da_compra <> Soma_do_cliente
 
-/* QUESTAO 3
-Retorne as categorias válidas, suas somas totais dos valores de vendas,
-um ranqueamento de maior valor para menor valor junto com o
-somatório acumulado dos valores pela mesma regra do ranqueamento.
+/* EXERCISE 3
+Return valid categories, their total sums of sales amounts,
+a ranking from highest value to lowest value along with the
+cumulative sum of values by the same ranking rule.
 */
 SELECT 
 	*,
