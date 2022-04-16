@@ -13,6 +13,7 @@ GROUP BY Categoria, Estado
 HAVING Quantidade > 1000
 ORDER BY Estado, Quantidade DESC
 
+
 /* QUESTAO 2
 Mostre os 5 clientes (customer_id) que gastaram mais dinheiro em compras, qual foi o valor total de todas as compras deles, quantidade de compras, e valor médio gasto por compras.
 Ordene os mesmos por ordem decrescente pela média do valor de compra.
@@ -32,6 +33,7 @@ ORDER BY Valor_Total_Compras DESC
 LIMIT 5)
 SELECT * FROM Top_5_Clientes
 ORDER BY Valor_Medio_Compras DESC
+
 
 /* QUESTAO 3
 Mostre o valor vendido total de cada vendedor (seller_id) em cada uma das categorias de produtos, somente retornando os vendedores que nesse somatório e agrupamento venderam mais de $1000.
