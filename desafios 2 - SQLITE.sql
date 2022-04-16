@@ -33,6 +33,8 @@ ORDER BY Valor_Total_Compras DESC
 LIMIT 5)
 SELECT * FROM Top_5_Clientes
 ORDER BY Valor_Medio_Compras DESC
+/* Obs: "customer_unique_id" é o identificador real único de cada cliente, de acordo com as informações do dataset no Kaggle.
+"customer_id" é um valor gerado para cada pedido ("order_id"), então cada cliente ("customer_unique_id") pode ter mais de um "customer_id".*/
 
 
 /* QUESTAO 3
