@@ -19,6 +19,7 @@ CREATE INDEX idx_geolocation ON olist_geolocation_dataset (geolocation_zip_code_
 CREATE INDEX idx_geolocation2 ON olist_customers_dataset (customer_zip_code_prefix);
 CREATE INDEX idx_geolocation3 ON olist_sellers_dataset (seller_zip_code_prefix);
 
+
 /* QUESTAO 2 (Opcional)
 Crie índices cluesterizados. Lembre-se que, para isso, você deverá recriar a tabela para poder criar as Primary e Foreign Keys.
 */
