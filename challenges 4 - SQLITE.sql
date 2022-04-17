@@ -7,15 +7,15 @@ note that we will work on the same query with 2 different granularities.
 */
 CREATE VIEW IF NOT EXISTS SELLER_STATS AS
 	SELECT 
-		Vendedores.seller_id AS Vendedor,
-		count(Items.product_id) AS Quantidade_items,
-		avg(julianday(Pedidos.order_delivered_carrier_date) - julianday(Pedidos.order_approved_at)) AS Tempo_medio_postagem,
-		count(DISTINCT Pedidos.order_id) AS Quantidade_pedidos
-	FROM olist_orders_dataset AS Pedidos
-	INNER JOIN olist_order_items_dataset AS Items ON Items.order_id = Pedidos.order_id
-	INNER JOIN olist_sellers_dataset AS Vendedores ON Vendedores.seller_id = Items.seller_id
-	WHERE Pedidos.order_status NOT IN ('canceled')
-	GROUP BY Vendedor
+		Sellers.seller_id AS Seller,
+		count(Items.product_id) AS Items_Quantity,
+		avg(julianday(Orders.order_delivered_carrier_date) - julianday(Orders.order_approved_at)) AS Avg_Time_to_Post
+		count(DISTINCT Orders.order_id) AS Orders_Quantity
+	FROM olist_orders_dataset AS Orders
+	INNER JOIN olist_order_items_dataset AS Items ON Items.order_id = Orders.order_id
+	INNER JOIN olist_sellers_dataset AS Sellers ON Sellers.seller_id = Items.seller_id
+	WHERE Orders.order_status NOT IN ('canceled')
+	GROUP BY Seller
 
 /* EXERCISE 2
 We want to give a coupon of 10% of the value of the customer's last purchase.
@@ -25,20 +25,20 @@ Create a query that returns the coupon values for each of the eligible customers
 */
 SELECT * FROM
 	(SELECT *,
-		lag(Valor_pedido) OVER (PARTITION BY Cliente_ID ORDER BY Data_pedido) AS Valor_pedido_anterior,
-		Valor_pedido*0.1 AS Valor_cupom
+		lag(Order_Value) OVER (PARTITION BY Customer_ID ORDER BY Order_Date) AS Last_Order_Value,
+		Order_Value*0.1 AS Coupon_Value
 	FROM (
 		SELECT 
-			Clientes.customer_unique_id AS Cliente_ID,
-			Pedidos.order_id AS Pedido_ID,
-			Pedidos.order_approved_at AS Data_pedido,
-			sum(Pagamentos.payment_value) AS Valor_pedido
-		FROM olist_customers_dataset AS Clientes
-		INNER JOIN olist_orders_dataset AS Pedidos ON Pedidos.customer_id = Clientes.customer_id
-		INNER JOIN olist_order_payments_dataset AS Pagamentos ON Pagamentos.order_id = Pedidos.order_id
-		WHERE Pedidos.order_status NOT IN ('canceled')
-		GROUP BY Cliente_ID, Pedido_ID, Data_pedido
-		ORDER BY Cliente_ID
+			Customers.customer_unique_id AS Customer_ID,
+			Orders.order_id AS Order_ID,
+			Orders.order_approved_at AS Order_Date,
+			sum(Payments.payment_value) AS Order_Value
+		FROM olist_customers_dataset AS Customers
+		INNER JOIN olist_orders_dataset AS Orders ON Orders.customer_id = Customers.customer_id
+		INNER JOIN olist_order_payments_dataset AS Payments ON Payments.order_id = Orders.order_id
+		WHERE Orders.order_status NOT IN ('canceled')
+		GROUP BY Customer_ID, Order_ID, Order_Date
+		ORDER BY Customer_ID
 		)
 	)
-WHERE Valor_pedido_anterior >= Valor_pedido
+WHERE Last_Order_Value >= Order_Value
