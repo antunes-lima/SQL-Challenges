@@ -65,8 +65,8 @@ DROP TABLE olist_orders_dataset;
 DROP TABLE olist_sellers_dataset;
 DROP TABLE olist_products_dataset;
 /* OBS: 
-Table order_payments uses FOREIGN KEY order_id, do not have primary key
-Table order_items do not have unique values of order_item_id
-Table geolocation do not have unique values of zipcode_prefix
-Table order_reviews do not have unique values of review_id
+Table order_payments uses FOREIGN KEY order_id, does not have primary key
+Table order_items does not have unique values of order_item_id
+Table geolocation does not have unique values of zipcode_prefix
+Table order_reviews does not have unique values of review_id
 */
