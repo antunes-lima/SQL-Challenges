@@ -10,7 +10,7 @@ OR payment_type = 'voucher'
 Retorne os campos da tabela de produtos e calcule o volume de cada produto em um novo campo.
 */
 SELECT 	*, 
-		product_length_cm * product_width_cm * product_height_cm AS product_volume_cm_3
+	product_length_cm * product_width_cm * product_height_cm AS product_volume_cm_3
 FROM olist_products_dataset
 
 
