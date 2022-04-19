@@ -59,4 +59,4 @@ FROM (
 	WHERE Pedidos.order_status NOT IN ('canceled') AND Produtos.product_category_name IS NOT NULL
 	GROUP BY Categoria
 	ORDER BY Total_vendas DESC
-)
+	)
