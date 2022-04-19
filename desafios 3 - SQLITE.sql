@@ -23,12 +23,13 @@ Retorne todos os pagamentos do cliente, com suas datas de aprovação,
 valor da compra e o valor total que o cliente já gastou em todas as suas compras,
 mostrando somente os clientes onde o valor da compra é diferente do valor total já gasto.
 */
-WITH Tabela AS
-	(SELECT	Cliente,
+WITH Tabela AS (
+	
+	SELECT	Cliente,
 	 	Data_aprovacao,
 	 	Valor_da_compra,
 	 	sum(Valor_da_compra) OVER (PARTITION BY Cliente) AS Soma_do_cliente
-	 FROM (
+	FROM (
 		SELECT	Clientes.customer_id AS Cliente,
 		 	Pedidos.order_approved_at AS Data_aprovacao,
 		 	Pagamentos.payment_value AS Valor_da_compra
