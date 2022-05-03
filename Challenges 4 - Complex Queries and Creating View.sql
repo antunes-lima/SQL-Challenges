@@ -26,19 +26,19 @@ Create a query that returns the coupon values for each of the eligible customers
 SELECT *
 FROM 	(
 	SELECT	*,
-		lag(Order_Value) OVER (PARTITION BY Customer_ID ORDER BY Order_Date) AS Last_Order_Value,
+		lag(Order_Value) OVER (PARTITION BY ID_customer ORDER BY Order_Date) AS Last_Order_Value,
 		Order_Value*0.1 AS Coupon_Value
 	FROM 	(
-		SELECT	Customers.customer_unique_id AS Customer_ID,
-			Orders.order_id AS Order_ID,
+		SELECT	Customers.customer_unique_id AS ID_customer,
+			Orders.order_id AS ID_Order,
 			Orders.order_approved_at AS Order_Date,
 			sum(Payments.payment_value) AS Order_Value
 		FROM olist_customers_dataset AS Customers
 		INNER JOIN olist_orders_dataset AS Orders ON Orders.customer_id = Customers.customer_id
 		INNER JOIN olist_order_payments_dataset AS Payments ON Payments.order_id = Orders.order_id
 		WHERE Orders.order_status NOT IN ('canceled')
-		GROUP BY Customers.Customer_ID, Orders.Order_ID, Orders.order_approved_at
-		ORDER BY Customers.Customer_ID
+		GROUP BY ID_customer, ID_Order, Order_Date
+		ORDER BY ID_customer
 		)
 	)
 WHERE Last_Order_Value >= Order_Value
